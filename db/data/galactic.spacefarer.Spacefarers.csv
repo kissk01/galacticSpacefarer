@@ -1,0 +1,9 @@
+ID;firstName;lastName;email;originPlanet;spacesuitColor;stardustCollection;wormholeNavigationSkill;position_ID
+s1;John;Nova;john.nova@galaxy.com;Earth;Blue;120.50;75;p7
+s2;Alice;Stellar;alice.stellar@galaxy.com;Mars;Red;85.00;60;p3
+s3;Bob;Quasar;bob.quasar@galaxy.com;Venus;Green;40.00;30;p1
+s4;Elena;Vortex;elena.vortex@galaxy.com;Earth;Purple;210.25;90;p8
+s5;Kai;Orbit;kai.orbit@galaxy.com;Jupiter;Silver;150.00;80;p5
+s6;Mira;Luna;mira.luna@galaxy.com;Saturn;White;95.50;65;p4
+s7;Zane;Cosmo;zane.cosmo@galaxy.com;Neptune;Black;60.00;40;p2
+s8;Luna;Skyfall;luna.skyfall@galaxy.com;Mars;Yellow;130.75;70;p6

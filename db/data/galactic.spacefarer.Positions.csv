@@ -1,0 +1,9 @@
+ID;title;level;description;department_ID
+p1;Junior Engineer;1;Entry-level engineering crew;d1
+p2;Senior Engineer;3;Advanced ship systems specialist;d1
+p3;Navigation Officer;2;Handles route planning and wormholes;d2
+p4;Explorer;2;First contact specialist;d2
+p5;Research Scientist;2;Analyzes cosmic phenomena;d3
+p6;Lead Scientist;4;Heads research missions;d3
+p7;Fleet Captain;5;Commands interstellar missions;d4
+p8;Admiral;7;Supreme fleet command authority;d4
