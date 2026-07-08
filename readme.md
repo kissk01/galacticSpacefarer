@@ -38,6 +38,20 @@ Install dependencies from the project root:
 pnpm install
 ```
 
+Install dependencies for both UI applications as well:
+
+```bash
+cd app/spacefarer
+pnpm install
+```
+
+```bash
+cd app/spacefarer-browse
+pnpm install
+```
+
+Then return to the project root before starting the CAP server.
+
 ## Start The Project
 
 Run the CAP server:
