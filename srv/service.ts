@@ -16,11 +16,26 @@ interface SpacefarerCreate {
 
   wormholeNavigationSkill?: number;
 
-  position_ID: string;
+  position_ID?: string;
+
+  positionId?: string;
 }
 
 export default cds.service.impl(function () {
   const { Spacefarers } = this.entities;
+
+  this.before(["NEW", "PATCH", "CREATE", "UPDATE"], Spacefarers, async (req) => {
+    const data = req.data as SpacefarerCreate;
+
+    if (data.positionId && !data.position_ID) {
+      data.position_ID = data.positionId;
+    }
+
+    if (data.position_ID && !data.positionId) {
+      data.positionId = data.position_ID;
+    }
+  });
+
   this.before("CREATE", Spacefarers, async (req) => {
     const data = req.data as SpacefarerCreate;
     const planet = req.user.attr?.planet;

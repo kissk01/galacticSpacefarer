@@ -1,12 +1,17 @@
 {
+  "name": "galacticSpacefarer",
+  "private": true,
   "scripts": {
     "build": "tsc",
-    "watch": "cds watch"
+    "watch": "cds watch",
+    "watch-spacefarer": "cds watch --open spacefarer/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "deploy-sqlite": "cds deploy --to sqlite:db.sqlite"
   },
   "dependencies": {
     "@cap-js/sqlite": "^3.0.2",
     "@sap/cds": "^10.0.3",
     "@sap/cds-dk": "^10.0.3",
+    "@sap/ux-ui5-tooling": "^1.28.0",
     "express": "^5.2.1",
     "nodemailer": "^9.0.3",
     "sqlite": "^5.1.1"
@@ -16,11 +21,19 @@
     "@cap-js/cds-types": "^0.18.0",
     "@types/node": "^26.1.0",
     "@types/nodemailer": "^8.0.1",
+    "@ui5/cli": "^4.0.57",
+    "cds-plugin-ui5": "^0.17.0",
     "ts-node": "^10.9.2",
     "tsx": "^4",
     "typescript": "^6.0.3"
   },
   "imports": {
     "#cds-models/*": "./@cds-models/*/index.js"
-  }
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/spacefarer"
+  ]
 }

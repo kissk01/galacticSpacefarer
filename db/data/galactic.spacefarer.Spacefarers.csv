@@ -1,9 +1,9 @@
 ID;firstName;lastName;email;originPlanet;spacesuitColor;stardustCollection;wormholeNavigationSkill;position_ID
-s1;John;Nova;john.nova@galaxy.com;Earth;Blue;120.50;75;p7
-s2;Alice;Stellar;alice.stellar@galaxy.com;Mars;Red;85.00;60;p3
-s3;Bob;Quasar;bob.quasar@galaxy.com;Venus;Green;40.00;30;p1
-s4;Elena;Vortex;elena.vortex@galaxy.com;Earth;Purple;210.25;90;p8
-s5;Kai;Orbit;kai.orbit@galaxy.com;Jupiter;Silver;150.00;80;p5
-s6;Mira;Luna;mira.luna@galaxy.com;Saturn;White;95.50;65;p4
-s7;Zane;Cosmo;zane.cosmo@galaxy.com;Neptune;Black;60.00;40;p2
-s8;Luna;Skyfall;luna.skyfall@galaxy.com;Mars;Yellow;130.75;70;p6
+99999991-9999-9999-9999-999999999991;John;Nova;john.nova@galaxy.com;Earth;Blue;120.50;75;ddddddd7-dddd-dddd-dddd-ddddddddddd7
+99999992-9999-9999-9999-999999999992;Alice;Stellar;alice.stellar@galaxy.com;Mars;Red;85.00;60;bbbbbbb3-bbbb-bbbb-bbbb-bbbbbbbbbbb3
+99999993-9999-9999-9999-999999999993;Bob;Quasar;bob.quasar@galaxy.com;Venus;Green;40.00;30;aaaaaaa1-aaaa-aaaa-aaaa-aaaaaaaaaaa1
+99999994-9999-9999-9999-999999999994;Elena;Vortex;elena.vortex@galaxy.com;Earth;Purple;210.25;90;ddddddd8-dddd-dddd-dddd-ddddddddddd8
+99999995-9999-9999-9999-999999999995;Kai;Orbit;kai.orbit@galaxy.com;Jupiter;Silver;150.00;80;ccccccc5-cccc-cccc-cccc-ccccccccccc5
+99999996-9999-9999-9999-999999999996;Mira;Luna;mira.luna@galaxy.com;Saturn;White;95.50;65;bbbbbbb4-bbbb-bbbb-bbbb-bbbbbbbbbbb4
+99999997-9999-9999-9999-999999999997;Zane;Cosmo;zane.cosmo@galaxy.com;Neptune;Black;60.00;40;aaaaaaa2-aaaa-aaaa-aaaa-aaaaaaaaaaa2
+99999998-9999-9999-9999-999999999998;Luna;Skyfall;luna.skyfall@galaxy.com;Mars;Yellow;130.75;70;ccccccc6-cccc-cccc-cccc-ccccccccccc6
