@@ -27,7 +27,11 @@ annotate service.Spacefarers with @(
 annotate service.Spacefarers with {
     position_ID @(
         Common.Label : 'Position',
-        Common.Text : position.title,
+        Common.Text : position.title
+    );
+
+    position @(
+        Common.ValueListWithFixedValues : true,
         Common.ValueList : {
             $Type : 'Common.ValueListType',
             CollectionPath : 'Positions',

@@ -4,6 +4,9 @@ specVersion: "4.0"
 metadata:
   name: spacefarer
 type: application
+customConfiguration:
+  cds-plugin-ui5:
+    mountPath: /spacefarer/webapp
 server:
   customMiddleware:
     - name: fiori-tools-proxy
@@ -25,6 +28,9 @@ server:
       afterMiddleware: fiori-tools-appreload
       configuration:
         flp:
+          intent:
+            object: spacefarer
+            action: preview
           theme: sap_horizon
 builder:
   resources:

@@ -27,9 +27,6 @@
     }
   },
   "sap.ui": {
-    "rootView": {
-      "viewName": "spacefarer.view.App"
-    },
     "technology": "UI5",
     "icons": {
       "icon": "",
