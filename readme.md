@@ -4,12 +4,12 @@ Welcome to your new CAP project.
 
 It contains these folders and files, following our recommended project layout:
 
-File or Folder | Purpose
----------|----------
-`app/` | content for UI frontends goes here
-`db/` | your domain models and data go here
-`srv/` | your service models and code go here
-`readme.md` | this getting started guide
+| File or Folder | Purpose                              |
+| -------------- | ------------------------------------ |
+| `app/`         | content for UI frontends goes here   |
+| `db/`          | your domain models and data go here  |
+| `srv/`         | your service models and code go here |
+| `readme.md`    | this getting started guide           |
 
 ## Next Steps
 
@@ -20,3 +20,15 @@ File or Folder | Purpose
 ## Learn More
 
 Learn more at <https://cap.cloud.sap>.
+
+## Authentication
+
+- CAP mocked authentication is used for local development.
+- Mocked users are configured in `.cdsrc.json`.
+- Users contain a planet attribute.
+- Authorization is implemented using row-level filtering.
+
+## Production
+
+- The same logic would use SAP XSUAA JWT attributes.
+- Planet would come from JWT claims instead of mocked users.

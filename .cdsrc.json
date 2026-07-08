@@ -1,0 +1,32 @@
+{
+  "requires": {
+    "queue": false,
+    "auth": {
+      "kind": "mocked",
+      "users": {
+        "mars.user": {
+          "password": "password",
+          "roles": [
+            "authenticated-user"
+          ],
+          "attr": {
+            "planet": "Mars"
+          }
+        },
+        "earth.user": {
+          "password": "password",
+          "roles": [
+            "authenticated-user"
+          ],
+          "attr": {
+            "planet": "Earth"
+          }
+        },
+        "*": false
+      }
+    },
+    "db": {
+      "kind": "sqlite"
+    }
+  }
+}
