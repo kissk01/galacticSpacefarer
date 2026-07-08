@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "tsc",
+    "test": "node --import tsx --test test/*.test.ts",
     "watch": "cds watch",
     "watch-spacefarer": "cds watch --open spacefarer/index.html?sap-ui-xx-viewCache=false --livereload false",
     "deploy-sqlite": "cds deploy --to sqlite:db.sqlite",

@@ -1,136 +1,84 @@
 import cds from "@sap/cds";
 import { sendCosmicNotification } from "./services/email.service";
+import {
+  applyDefaults,
+  getValidationErrors,
+  normalizeData,
+  type SpacefarerCreate,
+  syncPositionFields,
+} from "./service.helpers";
 
-interface SpacefarerCreate {
-  firstName: string;
+function getPlanetOrReject(req: cds.Request, message: string): string {
+  const planet = req.user.attr?.planet;
 
-  lastName: string;
+  if (!planet) {
+    req.reject(403, message);
+  }
 
-  email: string;
+  return planet as string;
+}
 
-  originPlanet: string;
+function logUserContext(req: cds.Request): void {
+  console.log({
+    id: req.user.id,
+    attr: req.user.attr,
+    additional: req.user,
+  });
+}
 
-  spacesuitColor?: string;
+function validateData(req: cds.Request, data: SpacefarerCreate): void {
+  for (const error of getValidationErrors(data)) {
+    req.error(400, error);
+  }
+}
 
-  stardustCollection?: number;
+function restrictReadToPlanet(req: cds.Request, planet: string): void {
+  const where = req.query.SELECT?.where;
+  const planetFilter = [{ ref: ["originPlanet"] }, "=", { val: planet }];
 
-  wormholeNavigationSkill?: number;
+  req.query.SELECT!.where =
+    where && where.length > 0 ? [...where, "and", ...planetFilter] : planetFilter;
+}
 
-  position_ID?: string;
+async function sendCreateNotification(data: SpacefarerCreate): Promise<void> {
+  console.log("Sending email to:", data.email);
+  console.log(data, " spacefarer create ");
 
-  positionId?: string;
+  await sendCosmicNotification({
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email,
+    originPlanet: data.originPlanet,
+    stardustCollection: data.stardustCollection ?? 0,
+    wormholeNavigationSkill: data.wormholeNavigationSkill ?? 0,
+    spacesuitColor: data.spacesuitColor,
+  });
 }
 
 export default cds.service.impl(function () {
   const { Spacefarers } = this.entities;
 
-  this.before(["NEW", "PATCH", "CREATE", "UPDATE"], Spacefarers, async (req) => {
-    const data = req.data as SpacefarerCreate;
-
-    if (data.positionId && !data.position_ID) {
-      data.position_ID = data.positionId;
-    }
-
-    if (data.position_ID && !data.positionId) {
-      data.positionId = data.position_ID;
-    }
+  this.before(["NEW", "PATCH", "CREATE", "UPDATE"], Spacefarers, (req) => {
+    syncPositionFields(req.data as SpacefarerCreate);
   });
 
-  this.before("CREATE", Spacefarers, async (req) => {
+  this.before("CREATE", Spacefarers, (req) => {
     const data = req.data as SpacefarerCreate;
-    const planet = req.user.attr?.planet;
+    const planet = getPlanetOrReject(req, "User has no planet assigned");
 
-    console.log({
-      id: req.user.id,
-      attr: req.user.attr,
-      additional: req.user,
-    });
-
-    if (!planet) {
-      req.reject(403, "User has no planet assigned");
-    }
-
+    logUserContext(req);
     req.data.originPlanet = planet;
-
-    if ((data.stardustCollection ?? 0) < 0) {
-      req.error(
-        400,
-        "Stardust collection cannot be negative." + data.stardustCollection,
-      );
-    }
-    if (data.wormholeNavigationSkill !== undefined) {
-      if (
-        data.wormholeNavigationSkill < 0 ||
-        data.wormholeNavigationSkill > 100
-      ) {
-        req.error(400, "Wormhole navigation skill must be between 0 and 100.");
-      }
-    }
-
-    function normalizeName(name: string): string {
-      const trimmed = name.trim();
-
-      return trimmed.charAt(0).toUpperCase() + trimmed.slice(1).toLowerCase();
-    }
-
-    data.firstName = normalizeName(data.firstName);
-    data.lastName = normalizeName(data.lastName);
-
-    if (!data.spacesuitColor) {
-      data.spacesuitColor = "Silver";
-    }
-
-    if (data.stardustCollection == null) {
-      data.stardustCollection = 0;
-    }
+    validateData(req, data);
+    normalizeData(data);
+    applyDefaults(data);
   });
 
-  this.before("READ", Spacefarers, async (req) => {
-    const planet = req.user.attr?.planet;
-
-    if (!planet) {
-      req.reject(403, "No planet assigned to user");
-    }
-
-    const where = req.query.SELECT?.where;
-
-    if (where && where.length > 0) {
-      req.query.SELECT!.where = [
-        ...where,
-        "and",
-        {
-          ref: ["originPlanet"],
-        },
-        "=",
-        {
-          val: planet,
-        },
-      ];
-    } else {
-      req.query.SELECT!.where = [
-        {
-          ref: ["originPlanet"],
-        },
-        "=",
-        {
-          val: planet,
-        },
-      ];
-    }
+  this.before("READ", Spacefarers, (req) => {
+    const planet = getPlanetOrReject(req, "No planet assigned to user");
+    restrictReadToPlanet(req, planet);
   });
 
   this.after("CREATE", Spacefarers, async (_, req) => {
-    const spacefarer = req.data as SpacefarerCreate;
-    console.log("Sending email to:", spacefarer.email);
-    console.log(spacefarer, " spacefarer create ");
-    await sendCosmicNotification({
-      firstName: spacefarer.firstName,
-      lastName: spacefarer.lastName,
-      email: spacefarer.email,
-      originPlanet: spacefarer.originPlanet,
-      stardustCollection: spacefarer.stardustCollection ?? 0,
-      wormholeNavigationSkill: spacefarer.wormholeNavigationSkill ?? 0,
-      spacesuitColor: spacefarer.spacesuitColor,
-    });
+    await sendCreateNotification(req.data as SpacefarerCreate);
   });
 });
