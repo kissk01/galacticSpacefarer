@@ -5,7 +5,8 @@
     "build": "tsc",
     "watch": "cds watch",
     "watch-spacefarer": "cds watch --open spacefarer/index.html?sap-ui-xx-viewCache=false --livereload false",
-    "deploy-sqlite": "cds deploy --to sqlite:db.sqlite"
+    "deploy-sqlite": "cds deploy --to sqlite:db.sqlite",
+    "watch-spacefarer-browse": "cds watch --open spacefarerbrowse/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "dependencies": {
     "@cap-js/sqlite": "^3.0.2",
@@ -34,6 +35,7 @@
     "app/*"
   ],
   "sapux": [
-    "app/spacefarer"
+    "app/spacefarer",
+    "app/spacefarer-browse"
   ]
 }
