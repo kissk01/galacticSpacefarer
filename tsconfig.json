@@ -8,22 +8,14 @@
     "skipLibCheck": true,
     "rootDir": ".",
     "outDir": "gen",
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
     "allowJs": true,
     "paths": {
-      "@sap/cds": [
-        "./node_modules/@cap-js/cds-types"
-      ],
-      "#cds-models/*": [
-        "./@cds-models/*"
-      ]
+      "@sap/cds": ["./node_modules/@cap-js/cds-types"],
+      "#cds-models/*": ["./@cds-models/*"]
     }
   },
-  "include": [
-    "srv/**/*.ts"
-  ]
+  "include": ["srv/**/*.ts"]
 }

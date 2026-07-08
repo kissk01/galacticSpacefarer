@@ -6,23 +6,12 @@
     "allowJs": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "moduleResolution": "node",
     "rootDir": "./webapp",
     "outDir": "./dist",
-    "baseUrl": "./",
     "paths": {
-      "spacefarerbrowse/*": [
-        "./webapp/*"
-      ]
+      "spacefarerbrowse/*": ["./webapp/*"]
     },
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/@sapui5/types",
-      "../../node_modules/@types",
-      "../../node_modules/@sapui5/types"
-    ]
+    "types": ["@sapui5/types"]
   },
-  "include": [
-    "./webapp/**/*"
-  ]
+  "include": ["./webapp/**/*"]
 }

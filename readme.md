@@ -1,34 +1,136 @@
-# Getting Started
+# Galactic Spacefarer
 
-Welcome to your new CAP project.
+The application exposes a CAP OData V4 service and two SAP Fiori UIs:
 
-It contains these folders and files, following our recommended project layout:
+- `Spacefarer Form Entry`
+  Purpose: create and edit a `Spacefarer`
+- `Galactic Users`
+  Purpose: browse the visible `Spacefarers` and open their details
 
-| File or Folder | Purpose                              |
-| -------------- | ------------------------------------ |
-| `app/`         | content for UI frontends goes here   |
-| `db/`          | your domain models and data go here  |
-| `srv/`         | your service models and code go here |
-| `readme.md`    | this getting started guide           |
+## Tech Stack
 
-## Next Steps
+- SAP CAP
+- SQLite
+- SAP Fiori Elements
+- UI5 Tooling
+- TypeScript
 
-- Open a new terminal and run `cds watch`
-- (in VS Code simply choose _**Terminal** > Run Task > cds watch_)
-- Start with your domain model, in a CDS file in `db/`
+## Project Structure
 
-## Learn More
+| Path                     | Purpose                                   |
+| ------------------------ | ----------------------------------------- |
+| `db/`                    | CDS domain model and seed data            |
+| `srv/`                   | CAP service definitions and runtime logic |
+| `app/spacefarer/`        | Form Entry Object Page app                |
+| `app/spacefarer-browse/` | List Report / Object Page app             |
+| `readme.md`              | Project usage guide                       |
 
-Learn more at <https://cap.cloud.sap>.
+## Prerequisites
 
-## Authentication
+- Node.js LTS
+- `pnpm`
 
-- CAP mocked authentication is used for local development.
-- Mocked users are configured in `.cdsrc.json`.
-- Users contain a planet attribute.
-- Authorization is implemented using row-level filtering.
+## Installation
 
-## Production
+Install dependencies from the project root:
 
-- The same logic would use SAP XSUAA JWT attributes.
-- Planet would come from JWT claims instead of mocked users.
+```bash
+pnpm install
+```
+
+## Start The Project
+
+Run the CAP server:
+
+```bash
+pnpm watch
+```
+
+The application will start on:
+
+```text
+http://localhost:4004
+```
+
+## Database Setup
+
+The project uses SQLite for local development.
+
+If you need to recreate the local database, run:
+
+```bash
+pnpm deploy-sqlite
+```
+
+If the schema has changed and the database gets out of sync, the quickest reset is:
+
+1. Stop the server
+2. Delete `db.sqlite`
+3. Run `pnpm deploy-sqlite`
+4. Start the server again with `pnpm watch`
+
+## Login
+
+Local development uses mocked CAP authentication. You must log in before using the UI.
+
+Available users:
+
+- `earth.user` / `password`
+- `mars.user` / `password`
+
+## Authorization Behavior
+
+Access to `Spacefarers` is filtered by the logged-in user's `planet` attribute.
+
+Examples:
+
+- `earth.user` only sees Earth spacefarers
+- `mars.user` only sees Mars spacefarers
+
+This is implemented in the CAP service layer for local development and is designed to mirror claim-based filtering in a production setup.
+
+## Available Pages
+
+### 1. Spacefarer Form Entry
+
+URL:
+
+```text
+http://localhost:4004/spacefarer/webapp/index.html
+```
+
+Description:
+
+- Form Entry Object Page
+- Used to create or edit a `Spacefarer`
+- Includes draft handling
+
+### 2. Galactic Users
+
+URL:
+
+```text
+http://localhost:4004/spacefarerbrowse/index.html
+```
+
+Description:
+
+- List Report + Object Page
+- Used to browse the visible `Spacefarers`
+- Open a selected user and view their details
+
+## Service Endpoint
+
+Main OData service:
+
+```text
+http://localhost:4004/odata/v4/galactic/
+```
+
+## Notes For Reviewers
+
+- Local authentication is mocked for convenience
+- Row-level visibility is driven by the authenticated user's `planet`
+- Seed data is provided through CSV files in `db/data/`
+- The repository contains two separate UIs on purpose:
+  one focused on create/edit, one focused on browse/details
